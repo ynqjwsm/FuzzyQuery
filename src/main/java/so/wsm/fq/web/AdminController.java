@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import so.wsm.fq.domian.ImportInformationItem;
@@ -19,6 +20,7 @@ import so.wsm.fq.domian.Information;
 import so.wsm.fq.domian.InformationRepository;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +91,6 @@ public class AdminController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", "template.xls");
-
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("站点信息数据","数据"), ImportInformationItem.class, new ArrayList<ImportInformationItem>());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
