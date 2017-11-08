@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content="Made By Brant."/>
+    <title>基站查询助手</title>
+    <!-- head 中 -->
+    <link rel="stylesheet" href="/weui/css/weui.min.css"/>
+    <link rel="stylesheet" href="/weui/css/jquery-weui.min.css"/>
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #container-searchEnbId, #container-searchFuzzy{
+            padding-bottom: 60px;
+        }
+    </style>
+</head>
+<body>
+<div class="weui-tab">
+    <div class="weui-tab__bd">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <div class="weui-search-bar">
+                <div class="weui-search-bar__form">
+                    <div class="weui-search-bar__box">
+                        <i class="weui-icon-search"></i>
+                        <input type="number" class="weui-search-bar__input" id="searchInputEnbId" placeholder="基站编号" required=""/>
+                        <a href="javascript:" class="weui-icon-clear" id="searchClearEnbId"></a>
+                    </div>
+                    <label class="weui-search-bar__label" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                        <i class="weui-icon-search"></i>
+                        <span>搜索</span>
+                    </label>
+                </div>
+                <a href="javascript:" class="weui-search-bar__cancel-btn">取消</a>
+            </div>
+            <div class="page__bd" id="container-searchEnbId"></div>
+        </div>
+        <div id="tab2" class="weui-tab__bd-item">
+            <div class="weui-search-bar">
+                <div class="weui-search-bar__form">
+                    <div class="weui-search-bar__box">
+                        <i class="weui-icon-search"></i>
+                        <input type="text" class="weui-search-bar__input" id="searchInputFuzzy" placeholder="基站名称" required=""/>
+                        <a href="javascript:" class="weui-icon-clear"></a>
+                    </div>
+                    <label class="weui-search-bar__label" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                        <i class="weui-icon-search"></i>
+                        <span>搜索</span>
+                    </label>
+                </div>
+                <a href="javascript:" class="weui-search-bar__cancel-btn">取消</a>
+            </div>
+            <div class="page__bd" id="container-searchFuzzy">
+
+            </div>
+        </div>
+    </div>
+    <div class="weui-tabbar">
+        <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
+            <div class="weui-tabbar__icon">
+                <img src="/images/icon_nav_panel.png" alt=""/>
+            </div>
+            <p class="weui-tabbar__label">编号查询</p>
+        </a>
+        <a href="#tab2" class="weui-tabbar__item">
+            <div class="weui-tabbar__icon">
+                <img src="/images/icon_nav_search_bar.png" alt=""/>
+            </div>
+            <p class="weui-tabbar__label">模糊查询</p>
+        </a>
+    </div>
+</div>
+<!-- body 最后 -->
+<script src="/weui/lib/jquery-2.1.4.min.js"></script>
+<script src="/weui/js/jquery-weui.min.js"></script>
+<script type="application/javascript">
+    //<![CDATA[
+    $(function () {
+        $("#searchInputFuzzy").bind('input propertychange',function () {
+            var content = $(this).val();
+            if(content.length == 0) {$("#container-searchFuzzy").empty();return;}
+            $.post('/api/fuzzy', {param : content}, function (data) {
+                if(data){
+                    var html = "";
+                    $.each(data, function (index, value) {
+                        html += "<div class=\"weui-panel\">\n" +
+                            "                    <div class=\"weui-panel__hd\">基站信息</div>\n" +
+                            "                    <div class=\"weui-panel__bd\">\n" +
+                            "                        <div class=\"weui-media-box weui-media-box_text\">\n" +
+                            "                            <p class=\"weui-media-box__desc\">\n" +
+                            "                                中文站名:" + value.nc + " <br/>\n" +
+                            "                                英文站名:" + value.ne +"\n" +
+                            "                            </p>\n" +
+                            "                            <ul class=\"weui-media-box__info\">\n" +
+                            "                                <li class=\"weui-media-box__info__meta\">基站编号</li>\n" +
+                            "                                <li class=\"weui-media-box__info__meta\">" + value.e + "</li>\n" +
+                            "                                <li class=\"weui-media-box__info__meta weui-media-box__info__meta_extra\">" + value.b + "</li>\n" +
+                            "                            </ul>\n" +
+                            "                        </div>\n" +
+                            "                    </div>\n" +
+                            "                </div>";
+                    });
+                    $("#container-searchFuzzy").empty();
+                    $("#container-searchFuzzy").html(html);
+                }
+            });
+        });
+
+        $("#searchInputEnbId").bind('input propertychange',function () {
+            var content = $(this).val();
+            $.post('/api/exact', {param : content}, function (data) {
+                if(data){
+                    if(data.length == 0){
+                        $("#container-searchEnbId").empty();return;
+                    }
+                    var html = "";
+                    $.each(data, function (index, value) {
+                        html += "<div class=\"weui-panel\">\n" +
+                            "                    <div class=\"weui-panel__hd\">基站信息</div>\n" +
+                            "                    <div class=\"weui-panel__bd\">\n" +
+                            "                        <div class=\"weui-media-box weui-media-box_text\">\n" +
+                            "                            <p class=\"weui-media-box__desc\">\n" +
+                            "                                中文站名:" + value.nc + " <br/>\n" +
+                            "                                英文站名:" + value.ne +"\n" +
+                            "                            </p>\n" +
+                            "                            <ul class=\"weui-media-box__info\">\n" +
+                            "                                <li class=\"weui-media-box__info__meta\">基站编号</li>\n" +
+                            "                                <li class=\"weui-media-box__info__meta\">" + value.e + "</li>\n" +
+                            "                                <li class=\"weui-media-box__info__meta weui-media-box__info__meta_extra\">" + value.b + "</li>\n" +
+                            "                            </ul>\n" +
+                            "                        </div>\n" +
+                            "                    </div>\n" +
+                            "                </div>";
+                    });
+                    $("#container-searchEnbId").empty();
+                    $("#container-searchEnbId").html(html);
+                }
+            });
+        });
+    });
+    //]]>
+</script>
+</body>
+</html>

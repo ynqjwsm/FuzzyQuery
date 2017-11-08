@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>数据管理</title>
+</head>
+<body>
+
+    <form action="/manage/update" method="post" enctype="multipart/form-data">
+        <label>数据文件:<input name="file" type="file"/></label>
+        <label><input name="method" type="radio" value="0" checked="true" />全量替换</label>
+        <label><input name="method" type="radio" value="1" />增量导入</label>
+        <input type="submit"/>
+    </form>
+    <hr/>
+    <a href="/manage/display" target="_blank">全量数据</a>
+    <a href="/manage/empty" target="_blank">清空数据</a>
+    <a href="/manage/template" target="_blank">下载导入模板</a>
+    <a href="/manage/download" target="_blank">下载所有数据</a>
+
+    <hr/>
+</body>
+</html>

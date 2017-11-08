@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>数据管理</title>
+</head>
+<body style="text-align: center;">
+    <h1>全量数据</h1>
+    <hr/>
+    <table border="5" style="margin: 0px auto;">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>基站编号</td>
+                <td>分公司</td>
+                <td>中文站名</td>
+                <td>英文站名</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${data}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.enbId}"></td>
+                <td th:text="${item.branch}"></td>
+                <td th:text="${item.nameInChinese}"></td>
+                <td th:text="${item.nameInEnglish}"></td>
+                <th><a th:href="${'/manage/delete?id=' + item.id}">删除</a></th>
+            </tr>
+        </tbody>
+    </table>
+    <hr/>
+    <div th:text="${'共计' + #lists.size(data) + '条记录'}"></div>
+</body>
+</html>

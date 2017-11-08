@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content="Made By Brant."/>
+    <title>基站查询助手 | 登陆</title>
+    <!-- head 中 -->
+    <link rel="stylesheet" href="/weui/css/weui.min.css"/>
+    <link rel="stylesheet" href="/weui/css/jquery-weui.css"/>
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .login-title {
+            text-align: center;
+            font-size: 34px;
+            color: #3cc51f;
+            font-weight: 400;
+            margin: 0 15%;
+        }
+        .login-header {
+            padding: 35px 0;
+        }
+    </style>
+</head>
+<body>
+<header class='login-header'>
+    <h1 class="login-title">基站信息查询</h1>
+</header>
+<form action="/login_process" method="post">
+<div class="weui-cells weui-cells_form">
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">用户名</label></div>
+            <div class="weui-cell__bd">
+                <input name="user" class="weui-input" type="text" placeholder="请输入用户名"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">密码</label></div>
+            <div class="weui-cell__bd">
+                <input name="pass" class="weui-input" type="password" placeholder="请输入密码"/>
+            </div>
+        </div>
+</div>
+    <div style="padding: 24px 24px 0 24px;">
+        <button type="submit" class="weui-btn weui-btn_primary">登陆</button>
+    </div>
+</form>
+<div class="weui-footer weui-footer_fixed-bottom">
+    <p class="weui-footer__links">
+        <a href="mailto:ynqjwsm@qq.com" class="weui-footer__link">联系我们</a>
+    </p>
+    <p class="weui-footer__text">Copyright © 2017 昆明电信无线网优中心</p>
+</div>
+<!-- body 最后 -->
+<script src="/weui/lib/jquery-2.1.4.js"></script>
+<script src="/weui/js/jquery-weui.min.js"></script>
+<script type="application/javascript">
+    //<![CDATA[
+    $(function () {
+
+    });
+    //]]>
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:h2:~/test;AUTO_SERVER=TRUE
+      driver-class-name: org.h2.Driver
+      validation-query: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
