@@ -1,12 +1,14 @@
 spring:
   datasource:
     druid:
-      url: jdbc:h2:~/test;AUTO_SERVER=TRUE
+      url: jdbc:h2:~/database/fuzzy_query;AUTO_SERVER=TRUE
       driver-class-name: org.h2.Driver
       validation-query: SELECT 1
+      initial-size: 5
+      max-active: 20
   jpa:
     hibernate:
       ddl-auto: update
-  h2:
-    console:
-      enabled: true
+users:
+    - username: brant
+      password: asdfgh
