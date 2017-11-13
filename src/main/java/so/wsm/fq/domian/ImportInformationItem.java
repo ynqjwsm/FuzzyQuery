@@ -51,17 +51,8 @@ public class ImportInformationItem {
         List<Information> informationList = new ArrayList<Information>();
 
         for(ImportInformationItem item : items){
-
             if(!item.valid()) continue;
-
-            Information information = new Information();
-
-            information.setEnbId(item.enbId);
-            information.setBranch(item.branch);
-            information.setNameInChinese(item.nameInChinese);
-            information.setNameInEnglish(item.nameInEnglish);
-
-            informationList.add(information);
+            informationList.add(item.toEntity());
         }
 
         return informationList;

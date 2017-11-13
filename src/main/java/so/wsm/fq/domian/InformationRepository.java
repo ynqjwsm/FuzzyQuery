@@ -11,6 +11,6 @@ public interface InformationRepository extends JpaRepository<Information, Long>{
     List<Information> findTop20ByNameInChineseContainingOrNameInEnglishContaining(String chsLike, String engLike);
     List<Information> findTop20ByEnbIdIs(Integer enbId);
 
-    Information findByEnbId(Integer enbId);
+    Information findByEnbIdAndNameInChineseIs(Integer enbId, String nameChs);
 
 }

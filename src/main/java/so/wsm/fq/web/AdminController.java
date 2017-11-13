@@ -75,7 +75,7 @@ public class AdminController {
         }else if(method == 1){
             List<Information> informationList = ImportInformationItem.toEntities(data);
             for(Information information : informationList){
-                Information inStore = informationRepository.findByEnbId(information.getEnbId());
+                Information inStore = informationRepository.findByEnbIdAndNameInChineseIs(information.getEnbId(), information.getNameInChinese());
                 if(null != inStore){
                     informationRepository.delete(inStore.getId());
                 }
