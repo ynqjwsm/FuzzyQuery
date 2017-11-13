@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import so.wsm.fq.config.ManagerConfig;
 import so.wsm.fq.domian.ImportInformationItem;
 import so.wsm.fq.domian.Information;
 import so.wsm.fq.domian.InformationRepository;

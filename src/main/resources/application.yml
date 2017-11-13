@@ -12,3 +12,5 @@ spring:
 users:
     - username: brant
       password: asdfgh
+manager:
+  enable: false

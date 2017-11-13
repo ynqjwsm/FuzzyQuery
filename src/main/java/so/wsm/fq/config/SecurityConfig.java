@@ -15,18 +15,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserConfig userConfig;
 
+    @Autowired
+    private ManagerConfig managerConfig;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/manage/**", "/images/**", "/weui/**").permitAll()
+                .antMatchers(managerConfig.getEnable() ? new String[]{"/manage/**", "/images/**", "/weui/**"} : new String[]{ "/images/**", "/weui/**"}).permitAll()
+                .antMatchers(managerConfig.getEnable() ? "/none" : "/manage/**").denyAll()
                 .antMatchers("/","/index","/api/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/login_process").usernameParameter("user").passwordParameter("pass").defaultSuccessUrl("/").permitAll()
                 .and()
                 .logout().logoutUrl("/logout").invalidateHttpSession(true);
+
     }
 
     @Bean
